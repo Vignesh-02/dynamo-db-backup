@@ -9,7 +9,7 @@ provider:
    - Effect: "Allow"
      Action: 
         - "dynamodb:CreateBackup"
-      Resource:  "*"
+     Resource:  "*"
 
 # arn:aws:dynamodb:region:account-id:table/  You should use this in production
 
