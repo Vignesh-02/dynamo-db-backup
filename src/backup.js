@@ -9,6 +9,7 @@ module.exports.handler = async () =>{
             BackupName: `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}`,
             TableName: process.env.DYNAMODB_TABLE_NAME
         };
+        // This creates a backup with backupname of tablename
         const backupsRes = await dynamodb.createBackup(params).promise();
         console.log({backupsRes});
     }catch(e){
