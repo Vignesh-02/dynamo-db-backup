@@ -1,0 +1,28 @@
+service: vigu-dynamo-scheduled-backup
+
+provider:
+  name: aws
+  runtime: nodejs16.x
+  stage: dev
+  region: us-east-1
+  iamRoleStatements:
+   - Effect: "Allow"
+     Action: 
+        - "dynamodb:CreateBackup"
+      Resource:  "*"
+
+# arn:aws:dynamodb:region:account-id:table/  You should use this in production
+
+# event is scheduling a backup
+functions:
+  backupDB:
+    handler: src/backup.handler
+    name: backup-dynamo-db
+    description: This is a lambda handler which does backup for a dynamodb table
+    timeout: 60 #seconds
+    memorySize: 128 #mb 
+    events:
+      - schedule: rate(3 minutes)
+    environment:
+      DYNAMODB_TABLE_NAME: decks  
+    
